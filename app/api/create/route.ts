@@ -1,10 +1,11 @@
+
 import { NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { supabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
-    const { url } = await req.json();
+    const { url, note } = await req.json();
 
     if (!url) {
       return NextResponse.json(
@@ -21,12 +22,16 @@ export async function POST(req: Request) {
         {
           token,
           original_url: url,
+          note,
         },
       ]);
 
     if (error) {
+      console.log(
+        "SUPABASE ERROR:",
+        error
+      );
 
-    console.log("SUPABASE ERROR:", error);
       return NextResponse.json(
         { error: error.message },
         { status: 500 }
@@ -36,7 +41,10 @@ export async function POST(req: Request) {
     return NextResponse.json({
       token,
     });
-  } catch {
+
+  } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
       { error: "Server error" },
       { status: 500 }
