@@ -21,7 +21,7 @@ export default function RedeemButton({ token }: { token: string }) {
     if (data.url) {
       window.location.href = data.url;
     } else {
-      alert(data.error || "Already redeemed");
+      alert(data.error || "Access expired");
       window.location.reload();
     }
   };
@@ -30,9 +30,9 @@ export default function RedeemButton({ token }: { token: string }) {
     <button
       onClick={redeem}
       disabled={loading}
-      className="w-full mt-7 py-4 rounded-2xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600"
+      className="w-full mt-7 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#0A66C2] to-cyan-500 hover:scale-[1.02] transition-all shadow-[0_0_35px_rgba(10,102,194,0.45)] disabled:opacity-60"
     >
-      {loading ? "Opening..." : "Redeem Now"}
+      {loading ? "Processing..." : "Redeem Now"}
     </button>
   );
 }
